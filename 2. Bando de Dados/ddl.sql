@@ -17,5 +17,6 @@ CREATE TABLE tb_filme (
     vl_avaliacao	decimal(15,2),
     dt_lancamento	date,
     bt_disponivel	boolean,
+    img_filme       varchar(800),
     FOREIGN KEY (id_usuario) REFERENCES tb_usuario (id_usuario)
 );
