@@ -57,7 +57,8 @@ SELECT id_filme			id,
 	  nm_filme			nome,
        vl_avaliacao		avaliacao,
        dt_lancamento	lancamento,
-       bt_disponivel	disponivel
+       bt_disponivel	disponivel,
+       id_usuario        usuario
   FROM tb_filme;
   
 
@@ -68,7 +69,8 @@ SELECT id_filme			id,
 	  nm_filme			nome,
        vl_avaliacao		avaliacao,
        dt_lancamento	lancamento,
-       bt_disponivel	disponivel
+       bt_disponivel	disponivel,
+       id_usuario        usuario
   FROM tb_filme
  WHERE nm_filme			like '%a%';
  
@@ -82,7 +84,8 @@ SELECT id_filme		id,
 	  ds_sinopse		sinopse,
        dt_lancamento	lancamento,
        bt_disponivel	disponivel,
-       img_filme         capa
+       img_filme         capa,
+       id_usuario        usuario
   FROM tb_filme
  WHERE id_filme			= 1;
     
