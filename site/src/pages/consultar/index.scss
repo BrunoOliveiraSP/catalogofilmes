@@ -4,19 +4,6 @@
     font: 600 18px 'Inter';
 
     
-
-    @keyframes animar-conteudo {
-        0% {
-            visibility: hidden;
-            opacity: 0;
-        }
-    
-        100% {
-            visibility: visible;
-            opacity: 1;
-        }
-    }
-
     .container {
         display: flex;
         flex-direction: column;
@@ -32,9 +19,6 @@
         padding: 20px 60px;
         background-color: #F5F6FA;
         flex-grow: 1;
-
-        visibility: hidden;
-        animation: animar-conteudo 1s ease .5s 1 normal forwards;
     }
 
 
