@@ -1,7 +1,10 @@
 .comp-menu {
-    background-color: #363434;
+    position: relative;
+    z-index: 10;
+
     width: 320px;
     padding-bottom: 50px;
+    background-color: #363434;
     
     animation: animar-menu 1s ease 0s 1 normal forwards;
 

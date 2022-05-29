@@ -11,7 +11,7 @@ export default function Index() {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Login />} />
-                <Route path='/admin/home' element={<Home />} />
+                <Route path='/admin' element={<Home />} />
                 <Route path='/admin/cadastrar' element={<Cadastrar />} />
                 <Route path='/admin/consultar' element={<Consultar />} />
                 <Route path='/admin/detalhe' element={<Detalhe />} />
