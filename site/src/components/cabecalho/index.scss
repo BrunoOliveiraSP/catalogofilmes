@@ -6,19 +6,6 @@
     padding: 0px 80px;
     box-shadow: 0px 2px 10px #d4d4d4;
 
-    animation: animar-cabecalho 1s ease 0s 1 normal forwards;
-
-    
-    @keyframes animar-cabecalho {
-        0% {
-            transform: translateY(-6em);
-        }
-    
-        100% {
-            transform: translateY(0px);
-        }
-    }
-
     .bem-vindo {
         font: 700 18px 'Inter';
         color: #7C7C7C;
