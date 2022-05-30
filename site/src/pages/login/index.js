@@ -23,6 +23,9 @@ export default function Index() {
                     <div className='form-entrar'>
                         <button className='btn-black'>ENTRAR</button> 
                     </div>
+                    <div className='form-entrar invalido'>
+                        Credenciais inválidas
+                    </div>
                 </div>
 
             </section>
