@@ -7,7 +7,7 @@ import './index.scss'
 export default function Index() {
     return (
         <main className='page page-cadastrar'>
-            <Menu />
+            <Menu selecionado='cadastrar' />
             <div className='container'>
                 <Cabecalho />
                 
@@ -32,7 +32,7 @@ export default function Index() {
                                 </div>
                                 <div className='form-row'>
                                     <label>Lançamento:</label>
-                                    <input type='date' value='2022-01-01' />
+                                    <input type='date' />
                                 </div>
                                 <br />
                                 <div className='form-row'>
