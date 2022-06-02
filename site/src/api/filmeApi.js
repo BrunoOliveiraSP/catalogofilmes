@@ -43,3 +43,17 @@ export async function alterarFilme(id, nome, avaliacao, lancamento, disponivel, 
     })
     return resposta.data;
 }
+
+
+export async function listarTodosFilmes() {
+    const resposta = await api.get('/filme');
+    return resposta.data;
+}
+
+
+
+export async function buscarFilmesPorNome(nome) {
+    const resposta = await api.get(`/filme/busca?nome=${nome}`);
+    return resposta.data;
+}
+
