@@ -62,3 +62,15 @@ export async function removerFilme(id) {
     const resposta = await api.delete(`/filme/${id}`);
     return resposta.status;
 }
+
+
+export async function buscarPorId(id) {
+    const resposta = await api.get(`/filme/${id}`);
+    return resposta.data;
+}
+
+
+export function buscarImagem(imagem) {
+    return `${api.getUri()}/${imagem}`
+    // http://localhost:5000/storage/capasFilmes/7506e3c244b59684e73fddb4d7cbcf80
+}

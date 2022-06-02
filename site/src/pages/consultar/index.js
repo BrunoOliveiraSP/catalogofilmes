@@ -8,12 +8,20 @@ import { toast } from 'react-toastify'
 
 import './index.scss'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function Index() {
     const [filmes, setFilmes] = useState([]);
     const [filtro, setFiltro] = useState('');
 
+    const navigate = useNavigate();
+
+
+
+    function editarFilme(id) {
+        navigate(`/admin/alterar/${id}`);
+    }
 
     async function removerFilmeClick(id, nome) {
 
@@ -92,7 +100,7 @@ export default function Index() {
                                     <td>{item.lancamento.substr(0, 10)}</td>
                                     <td>{item.disponivel ? 'Sim' : 'Não'}</td>
                                     <td>
-                                        <img src='/assets/images/icon-editar.svg' alt='editar' />
+                                        <img src='/assets/images/icon-editar.svg' alt='editar' onClick={() => editarFilme(item.id)} />
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <img src='/assets/images/icon-remover.svg' alt='remover' onClick={() => removerFilmeClick(item.id, item.nome)} />
                                     </td>

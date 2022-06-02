@@ -1,11 +1,12 @@
 import Menu from '../../components/menu'
 import Cabecalho from '../../components/cabecalho'
 
-import { cadastrarFilme, enviarImagemFilme, alterarFilme } from '../../api/filmeApi'
+import { cadastrarFilme, enviarImagemFilme, alterarFilme, buscarPorId, buscarImagem } from '../../api/filmeApi'
 import storage from 'local-storage'
 
 import './index.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 import { toast } from 'react-toastify';
 
@@ -24,6 +25,27 @@ export default function Index() {
     const [id, setId] = useState(0);
 
 
+    const { idParam } = useParams();
+
+    useEffect(() => {
+        if (idParam) {
+            carregarFilme();
+        }
+    }, [])
+
+
+    async function carregarFilme() {
+        const resposta = await buscarPorId(idParam);
+        setNome(resposta.nome);
+        setSinopse(resposta.sinopse);
+        setAvaliacao(resposta.avaliacao);
+        setDisponivel(resposta.disponivel);
+        setLancamento(resposta.lancamento.substr(0, 10));
+        
+        setId(resposta.id);
+        setImagem(resposta.imagem);
+    }
+
 
     async function salvarClick() {
         try {
@@ -41,7 +63,10 @@ export default function Index() {
             }
             else {
                 await alterarFilme(id, nome, avaliacao, lancamento, disponivel, sinopse, usuario);
-                await enviarImagemFilme(id, imagem);
+
+                if (typeof(imagem) == 'object')
+                    await enviarImagemFilme(id, imagem);
+                
                 toast.dark('🚀 Filme alterado com sucesso!');
             }
             
@@ -59,7 +84,12 @@ export default function Index() {
     }
 
     function mostrarImagem() {
-        return URL.createObjectURL(imagem);
+        if (typeof (imagem) == 'object') {
+            return URL.createObjectURL(imagem);
+        }
+        else {
+            return buscarImagem(imagem);
+        }
     }
 
     function novoClick() {
