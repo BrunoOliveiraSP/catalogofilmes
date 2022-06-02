@@ -29,3 +29,17 @@ export async function enviarImagemFilme(id, imagem) {
     
     return resposta.status;
 }
+
+
+
+export async function alterarFilme(id, nome, avaliacao, lancamento, disponivel, sinopse, usuario) {
+    const resposta = await api.put(`/filme/${id}`, {
+        nome: nome,
+        sinopse: sinopse,
+        avaliacao: avaliacao,
+        disponivel: disponivel,
+        lancamento: lancamento,
+        usuario: usuario
+    })
+    return resposta.data;
+}

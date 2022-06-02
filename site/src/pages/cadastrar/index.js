@@ -1,7 +1,7 @@
 import Menu from '../../components/menu'
 import Cabecalho from '../../components/cabecalho'
 
-import { cadastrarFilme, enviarImagemFilme } from '../../api/filmeApi'
+import { cadastrarFilme, enviarImagemFilme, alterarFilme } from '../../api/filmeApi'
 import storage from 'local-storage'
 
 import './index.scss'
@@ -21,6 +21,7 @@ export default function Index() {
     const [disponivel, setDisponivel] = useState(false);
     const [lancamento, setLancamento] = useState('');
     const [imagem, setImagem] = useState();
+    const [id, setId] = useState(0);
 
 
 
@@ -31,10 +32,19 @@ export default function Index() {
 
             const usuario = storage('usuario-logado').id;
             
-            const novoFilme = await cadastrarFilme(nome, avaliacao, lancamento, disponivel, sinopse, usuario);
-            await enviarImagemFilme(novoFilme.id, imagem);
+            if (id === 0) {
+                const novoFilme = await cadastrarFilme(nome, avaliacao, lancamento, disponivel, sinopse, usuario);
+                await enviarImagemFilme(novoFilme.id, imagem);
+                setId(novoFilme.id);
 
-            toast.dark('🚀 Filme cadastrado com sucesso!');
+                toast.dark('🚀 Filme cadastrado com sucesso!');
+            }
+            else {
+                await alterarFilme(id, nome, avaliacao, lancamento, disponivel, sinopse, usuario);
+                await enviarImagemFilme(id, imagem);
+                toast.dark('🚀 Filme alterado com sucesso!');
+            }
+            
         } catch (err) {
             if (err.response)
                 toast.error(err.response.data.erro);
@@ -50,6 +60,16 @@ export default function Index() {
 
     function mostrarImagem() {
         return URL.createObjectURL(imagem);
+    }
+
+    function novoClick() {
+        setId(0);
+        setNome('');
+        setAvaliacao(0);
+        setLancamento('');
+        setDisponivel(true);
+        setSinopse('');
+        setImagem();
     }
 
 
@@ -107,7 +127,8 @@ export default function Index() {
                                 <div className='form-row'>
                                     <label></label>
                                     <div className='btnSalvar'>
-                                        <button onClick={salvarClick}>SALVAR</button>    
+                                        <button onClick={salvarClick}> {id === 0 ? 'SALVAR' : 'ALTERAR'} </button> &nbsp; &nbsp;
+                                        <button onClick={novoClick}>NOVO</button> 
                                     </div>
                                 </div>
                             </div>
