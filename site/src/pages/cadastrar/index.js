@@ -20,19 +20,36 @@ export default function Index() {
     const [avaliacao, setAvaliacao] = useState(0);
     const [disponivel, setDisponivel] = useState(false);
     const [lancamento, setLancamento] = useState('');
-    const [imagem, setImagem] = useState('');
+    const [imagem, setImagem] = useState();
 
 
 
     async function salvarClick() {
         try {
+            if (!imagem)
+                throw new Error('Escolha a capa do filme.');
+
             const usuario = storage('usuario-logado').id;
-            const r = await cadastrarFilme(nome, avaliacao, lancamento, disponivel, sinopse, usuario);
+            
+            const novoFilme = await cadastrarFilme(nome, avaliacao, lancamento, disponivel, sinopse, usuario);
+            await enviarImagemFilme(novoFilme.id, imagem);
 
             toast.dark('🚀 Filme cadastrado com sucesso!');
         } catch (err) {
-            toast.error(err.response.data.erro);
+            if (err.response)
+                toast.error(err.response.data.erro);
+            else 
+                toast.error(err.message);
         }
+    }
+
+
+    function escolherImagem() {
+        document.getElementById('imagemCapa').click();
+    }
+
+    function mostrarImagem() {
+        return URL.createObjectURL(imagem);
     }
 
 
@@ -48,8 +65,17 @@ export default function Index() {
 
                         <div className='form-colums'>
                             <div>
-                                <div className='upload-capa'>
-                                    <img src="/assets/images/icon-upload.svg" alt="" />
+                                <div className='upload-capa' onClick={escolherImagem}>
+                                    
+                                    {!imagem &&
+                                        <img src="/assets/images/icon-upload.svg" alt="" />
+                                    }
+
+                                    {imagem &&
+                                        <img className='imagem-capa' src={mostrarImagem()} alt='' />
+                                    }
+
+                                    <input type='file' id='imagemCapa' onChange={e => setImagem(e.target.files[0])} />
                                 </div>
                             </div>
                             <div>

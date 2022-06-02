@@ -45,6 +45,10 @@ server.post('/filme', async (req, resp) => {
 
 server.put('/filme/:id/capa', upload.single('capa'), async (req, resp) => {
     try {
+        if (!req.file)
+            throw new Error('Escolha a capa do filme.');
+
+        
         const { id } = req.params;
         const imagem = req.file.path;
 
