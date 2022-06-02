@@ -1,7 +1,10 @@
 import Menu from '../../components/menu'
 import Cabecalho from '../../components/cabecalho'
 
-import { listarTodosFilmes, buscarFilmesPorNome } from '../../api/filmeApi'
+import { listarTodosFilmes, buscarFilmesPorNome, removerFilme } from '../../api/filmeApi'
+
+import { confirmAlert } from 'react-confirm-alert'
+import { toast } from 'react-toastify'
 
 import './index.scss'
 import { useEffect, useState } from 'react'
@@ -12,6 +15,32 @@ export default function Index() {
     const [filtro, setFiltro] = useState('');
 
 
+    async function removerFilmeClick(id, nome) {
+
+        confirmAlert({
+            title: 'Remover filme',
+            message: `Deseja remover o filme ${nome}?`,
+            buttons: [
+                {
+                    label: 'Sim',
+                    onClick: async () => {
+
+                        const resposta = await removerFilme(id, nome);
+                        if (filtro === '')
+                            carregarTodosFilmes();
+                        else
+                            filtrar();
+                        
+                        toast.dark('🚀 Filme removido!');
+                    }
+                },
+                {
+                    label: 'Não'
+                }
+            ]
+        })
+        
+    }
 
     async function filtrar() {
         const resp = await buscarFilmesPorNome(filtro);
@@ -56,7 +85,7 @@ export default function Index() {
                         <tbody>
 
                             {filmes.map(item => 
-                                <tr>
+                                <tr key={item.id}>
                                     <td>{item.id}</td>
                                     <td>{item.nome}</td>
                                     <td>{item.avaliacao}</td>
@@ -65,7 +94,7 @@ export default function Index() {
                                     <td>
                                         <img src='/assets/images/icon-editar.svg' alt='editar' />
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <img src='/assets/images/icon-remover.svg' alt='remover' />
+                                        <img src='/assets/images/icon-remover.svg' alt='remover' onClick={() => removerFilmeClick(item.id, item.nome)} />
                                     </td>
                                 </tr>
                             )}

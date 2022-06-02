@@ -57,3 +57,8 @@ export async function buscarFilmesPorNome(nome) {
     return resposta.data;
 }
 
+
+export async function removerFilme(id) {
+    const resposta = await api.delete(`/filme/${id}`);
+    return resposta.status;
+}
