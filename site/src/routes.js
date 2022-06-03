@@ -18,7 +18,7 @@ export default function Index() {
 
 
                 <Route path='/admin/consultar' element={<Consultar />} />
-                <Route path='/admin/detalhe' element={<Detalhe />} />
+                <Route path='/admin/detalhe/:idParam' element={<Detalhe />} />
             </Routes>
         </BrowserRouter>
     )

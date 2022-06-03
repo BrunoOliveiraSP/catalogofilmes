@@ -18,6 +18,10 @@ export default function Index() {
     const navigate = useNavigate();
 
 
+    function abrirDetalhes(id) {
+        navigate(`/admin/detalhe/${id}`);
+    }
+
 
     function editarFilme(id) {
         navigate(`/admin/alterar/${id}`);
@@ -93,16 +97,26 @@ export default function Index() {
                         <tbody>
 
                             {filmes.map(item => 
-                                <tr key={item.id}>
+                                <tr key={item.id} onClick={() => abrirDetalhes(item.id)}>
                                     <td>{item.id}</td>
                                     <td>{item.nome}</td>
                                     <td>{item.avaliacao}</td>
                                     <td>{item.lancamento.substr(0, 10)}</td>
                                     <td>{item.disponivel ? 'Sim' : 'Não'}</td>
                                     <td>
-                                        <img src='/assets/images/icon-editar.svg' alt='editar' onClick={() => editarFilme(item.id)} />
+                                        <img src='/assets/images/icon-editar.svg' alt='editar'
+                                            onClick={e => {
+                                                e.stopPropagation();
+                                                editarFilme(item.id);
+                                            }} />
+                                        
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <img src='/assets/images/icon-remover.svg' alt='remover' onClick={() => removerFilmeClick(item.id, item.nome)} />
+
+                                        <img src='/assets/images/icon-remover.svg' alt='remover'
+                                            onClick={e => {
+                                                e.stopPropagation();
+                                                removerFilmeClick(item.id, item.nome);
+                                            }} />
                                     </td>
                                 </tr>
                             )}
